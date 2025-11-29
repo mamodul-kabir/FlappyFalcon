@@ -1,9 +1,9 @@
 <?php
-    $stylesheet_url = 'index.css'; // Define the specific stylesheet
+    $stylesheet_url = "css/signinup.css"; // Define the specific stylesheet
     include 'header.php';           // Include the header
 
     if(isset($_POST["login"])){
-        header('Location: index.php'); 
+        header('Location: play.php'); 
     }
 ?>
 
