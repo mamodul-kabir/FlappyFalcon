@@ -1,7 +1,4 @@
 <?php
-    //SignUp DB code
-    header('Location: play.php');
-   <?php
 include 'db_connect.php';
 
 if (isset($_POST["signup"])) {
