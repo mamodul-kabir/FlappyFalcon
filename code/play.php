@@ -1,14 +1,8 @@
 <?php
     $stylesheet_url = 'css/index.css'; 
-    $add_line = '<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">'; 
+    $add_line = ['<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">', '<link rel="stylesheet" href="css/flappy.css">' ,'<script src="js/game.js"></script>']; 
     include 'header.php';           
-    
-    /*
-    if(!isset($_COOKIE["uname"])){
-        header('Location: login.php');
-        exit;
-    } 
-    */
+
 ?>
     <nav class="navbar">
         <ul class="nav-list">
@@ -18,8 +12,7 @@
         </ul>
     </nav>
     <div class="content">
-        <h1>Welcome, Player!</h1>
-        <p>Prepare for the next level!</p>
+        <canvas id="screen"></canvas>
     </div>
 <?php
     include "footer.php"; 
