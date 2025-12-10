@@ -1,7 +1,7 @@
 <?php
 session_start();
 $stylesheet_url = 'css/index.css'; 
-$add_line = '<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">'; 
+$add_line = ['<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">']; 
 include 'header.php';
 
 $products = include __DIR__ . '/products.php';

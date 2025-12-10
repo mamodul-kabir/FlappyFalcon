@@ -3,13 +3,6 @@
     $stylesheet_url = 'css/index.css'; 
     $add_line = ['<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">']; 
     include 'header.php';           
-    
-    /*
-    if(!isset($_COOKIE["uname"])){
-        header('Location: login.php');
-        exit;
-    } 
-    */
 ?>
     <nav class="navbar">
         <ul class="nav-list">
@@ -20,6 +13,7 @@
     </nav>
     <div class="content">
         <h1>Store — Skins</h1>
+        <p><strong>Your Balance: <?php echo isset($_SESSION['total_coins']) ? intval($_SESSION['total_coins']) : 0; ?> coins</strong></p>
         <p>Choose a skin and add it to your cart.</p>
         <p><a href="cart.php">View Cart</a></p>
 

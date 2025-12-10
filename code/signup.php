@@ -12,22 +12,26 @@ if (isset($_POST["signup"])) {
     }
     
     // Check if username already exists
-    $check = $db->prepare("SELECT * FROM users WHERE username = ?");
-    $check->execute([$uname]);
-    
-    if ($check->fetch()) {
+    $check = $db->prepare("SELECT * FROM users WHERE username = :uname");
+    $check->bindValue(':uname', $uname, SQLITE3_TEXT);
+    $result = $check->execute();
+
+    if ($result->fetchArray(SQLITE3_ASSOC)){
         header('Location: signup_page.php?error=exists');
         exit;
     }
-    
-    // Hash the password and insert
+
+    // Fix the insert query
     $hashed_pw = password_hash($pw, PASSWORD_DEFAULT);
-    $insert = $db->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    
-    if ($insert->execute([$uname, $hashed_pw])) {
+    $insert = $db->prepare("INSERT INTO users (username, password) VALUES (:uname, :pw)");
+    $insert->bindValue(':uname', $uname, SQLITE3_TEXT);
+    $insert->bindValue(':pw', $hashed_pw, SQLITE3_TEXT);
+
+    if ($insert->execute()) {
         header('Location: login_page.php?success=1');
         exit;
-    } else {
+    }
+    else {
         header('Location: signup_page.php?error=failed');
         exit;
     }

@@ -1,0 +1,29 @@
+#top-row{
+    background-color: #b966f1;
+    text-align: center;
+}
+
+table {
+    margin-left: auto;  
+    margin-right: auto; 
+    border-collapse: collapse; 
+    width: 80%;         
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 10px; 
+    overflow: hidden;
+}
+
+.segment{
+    margin: 40px;
+}
+
+input, button{
+    border-radius: 5px; 
+    padding: 8px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#result-div{
+    margin-top: 20px;
+}

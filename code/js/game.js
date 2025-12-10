@@ -163,6 +163,15 @@ function detectCollision(a, b){
 function triggerGameOver(){
     if(gameOver) return; 
     gameOver = true; 
+
+    if(score > 0){
+        fetch('save_score.php', {
+            method: "POST", 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({score: score })
+        }).then(res =>console.log("Score Updated!"));
+    }
+
     setTimeout(function(){
         canRestart = true; 
     }, 500); 
