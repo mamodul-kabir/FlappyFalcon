@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
 
 $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
 $qty = 1;
-$update = isset($_POST['update']); // kept for backward compatibility, but not used in normal flow
+$update = isset($_POST['update']); 
 
 if($id <= 0){
     header('Location: shop.php');
@@ -27,7 +27,6 @@ if(!isset($products[$id])){
 
 if(!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
 
-// If user already owns the skin, don't add it again
 if(isset($_SESSION['owned_skins']) && isset($_SESSION['owned_skins'][$id])){
     header('Location: shop.php');
     exit;
@@ -37,3 +36,4 @@ $_SESSION['cart'][$id] = 1;
 
 header('Location: cart.php');
 exit;
+
