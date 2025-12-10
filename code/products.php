@@ -22,7 +22,7 @@ $products = [
         'image' => 'assets/skin/parisian.png',
         'desc' => 'Elegant Paris-inspired skin',
     ],
-    // Add more products here
 ];
 
 return $products;
+
