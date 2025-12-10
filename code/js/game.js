@@ -1,4 +1,3 @@
-//resource used: https://youtu.be/jj5ADM2uywg?si=WPj0fAcnI2bt2U7Z
 //board
 let board; 
 let boardW = 360; 
@@ -11,7 +10,6 @@ let brdH = 24;
 let brdX = boardW/8;
 let brdY = boardH/2;
 let brdImg; 
-// Use selected skin from PHP, fallback to default if not set
 let brdSkin = typeof selectedSkinImage !== 'undefined' ? selectedSkinImage : "./assets/skin/flappybird0.png";
 
 let brd = {
@@ -176,4 +174,5 @@ function triggerGameOver(){
     setTimeout(function(){
         canRestart = true; 
     }, 500); 
+
 }
