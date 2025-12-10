@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION["username"])) {
+    header('Location: login_page.php');
+    exit;
+}
 $products = include __DIR__ . '/products.php';
 $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 

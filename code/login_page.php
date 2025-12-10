@@ -20,8 +20,11 @@
     <label>Username: <input type="text" name="uname" id="uname"></label><br>
     <label>Password: <input type="password" name="pw" id="pw"></label><br>
     <input type="submit" name="login" value="login">
+    <p class="note">Don't have an account?</p>
+    <a href="signup_page.php">
+        <button type="button">Sign Up</button>
+    </a>
 </form>
-<a href="signup_page.php"><button>signup</button></a>
 
 <?php
     include "footer.php"; 

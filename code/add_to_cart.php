@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION["username"])) {
+    header('Location: login_page.php');
+    exit;
+}
 
 if($_SERVER['REQUEST_METHOD'] !== 'POST'){
     header('Location: shop.php');

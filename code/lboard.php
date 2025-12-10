@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if (!isset($_SESSION["username"])) {
+        header('Location: login_page.php');
+        exit;
+    }
     $stylesheet_url = 'css/index.css'; 
     $add_line = ['<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">', '<link rel="stylesheet" href="css/lboard.css">']; 
     include 'header.php';           

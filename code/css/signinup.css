@@ -86,3 +86,9 @@ p {
     font-size: 10px;
     margin-bottom: 15px;
 }
+
+.note{
+    margin-top: 20px; 
+    font-size: 10px; 
+    color: #666;
+}
