@@ -27,7 +27,6 @@
         function toggleDropdown() {
             document.querySelector('.user-dropdown').classList.toggle('active');
         }
-        // Close dropdown when clicking outside
         document.addEventListener('click', function(event) {
             const dropdown = document.querySelector('.user-dropdown');
             if (!dropdown.contains(event.target)) {
@@ -43,15 +42,12 @@
 
         <?php
             $products = include __DIR__ . '/products.php';
-            // Ensure default skin selected is flappybird0 (product id 1)
             if (!isset($_SESSION['selected_skin'])) {
                 $_SESSION['selected_skin'] = 1;
             }
             if (!isset($_SESSION['owned_skins'])) {
-                // mark default skin as owned so user can select it
                 $_SESSION['owned_skins'] = [1 => true];
             } else {
-                // ensure default owned
                 if (!isset($_SESSION['owned_skins'][1])) {
                     $_SESSION['owned_skins'][1] = true;
                 }
@@ -104,4 +100,5 @@
     </div>
 <?php
     include "footer.php"; 
+
 ?>
