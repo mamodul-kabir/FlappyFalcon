@@ -41,7 +41,6 @@ if (isset($_POST["signup"])) {
         exit;
     }
     else {
-        // Log error for debugging (remove in production or log to file)
         error_log("Signup error: " . $db->lastErrorMsg());
         header('Location: signup_page.php?error=failed');
         exit;
