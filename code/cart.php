@@ -20,7 +20,27 @@ function format_coins($n){ return intval($n).' coins'; }
         <li class="nav-item"><a href="shop.php">Shop</a></li>
         <li class="nav-item"><a href="lboard.php">Leaderboard</a></li>
     </ul>
+    <div class="user-dropdown">
+        <button class="user-dropdown-toggle" onclick="toggleDropdown()">
+            <?php echo htmlspecialchars($_SESSION['username']); ?>
+        </button>
+        <ul class="user-dropdown-menu">
+            <li><a href="logout.php">Sign Out</a></li>
+        </ul>
+    </div>
 </nav>
+<script>
+    function toggleDropdown() {
+        document.querySelector('.user-dropdown').classList.toggle('active');
+    }
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const dropdown = document.querySelector('.user-dropdown');
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+</script>
 
 <div class="content">
     <h1>Your Cart</h1>

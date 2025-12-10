@@ -4,25 +4,71 @@ if (!isset($_SESSION["username"])) {
     header('Location: login_page.php');
     exit;
 }
+include 'db_connect.php';
 $products = include __DIR__ . '/products.php';
 $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])){
-    // Process purchase: add to owned_skins and clear cart
-    if(!isset($_SESSION['owned_skins'])) $_SESSION['owned_skins'] = [];
+    // Calculate total cost
+    $total = 0;
     foreach($cart as $id=>$qty){
         if(isset($products[$id])){
-            // add id once (ownership), ignore qty for cosmetics
-            $_SESSION['owned_skins'][$id] = true;
-            // optionally set last purchased as selected
-            $_SESSION['selected_skin'] = $id;
+            $total += $products[$id]['price'];
         }
     }
-    // clear cart
-    unset($_SESSION['cart']);
+    
+    // Check if user has enough coins
+    $user_id = $_SESSION["user_id"];
+    $stmt = $db->prepare("SELECT total_coins FROM users WHERE id = :id");
+    $stmt->bindValue(':id', $user_id, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+    $user = $result->fetchArray(SQLITE3_ASSOC);
+    
+    if($user && $user['total_coins'] >= $total){
+        // Deduct coins
+        $stmt = $db->prepare("UPDATE users SET total_coins = total_coins - :total WHERE id = :id");
+        $stmt->bindValue(':total', $total, SQLITE3_INTEGER);
+        $stmt->bindValue(':id', $user_id, SQLITE3_INTEGER);
+        $stmt->execute();
+        
+        // Update session coins
+        $_SESSION['total_coins'] = $user['total_coins'] - $total;
+        
+        // Save purchased skins to database
+        if(!isset($_SESSION['owned_skins'])) $_SESSION['owned_skins'] = [];
+        $last_purchased_id = null;
+        
+        foreach($cart as $id=>$qty){
+            if(isset($products[$id])){
+                // Insert into database (ignore if already exists)
+                $stmt = $db->prepare("INSERT OR IGNORE INTO user_skins (user_id, skin_id) VALUES (:user_id, :skin_id)");
+                $stmt->bindValue(':user_id', $user_id, SQLITE3_INTEGER);
+                $stmt->bindValue(':skin_id', $id, SQLITE3_INTEGER);
+                $stmt->execute();
+                
+                // Update session
+                $_SESSION['owned_skins'][$id] = true;
+                $last_purchased_id = $id;
+            }
+        }
+        
+        // Set last purchased skin as selected
+        if($last_purchased_id !== null){
+            $stmt = $db->prepare("UPDATE users SET selected_skin = :skin_id WHERE id = :id");
+            $stmt->bindValue(':skin_id', $last_purchased_id, SQLITE3_INTEGER);
+            $stmt->bindValue(':id', $user_id, SQLITE3_INTEGER);
+            $stmt->execute();
+            $_SESSION['selected_skin'] = $last_purchased_id;
+        }
+        
+        // clear cart
+        unset($_SESSION['cart']);
 
-    // show confirmation
-    $message = 'Purchase successful! Your selected skin has been applied.';
+        // show confirmation
+        $message = 'Purchase successful! Your selected skin has been applied.';
+    } else {
+        $message = 'Insufficient coins! You need ' . $total . ' coins but only have ' . ($user ? $user['total_coins'] : 0) . ' coins.';
+    }
 }
 
 $stylesheet_url = 'css/index.css'; 

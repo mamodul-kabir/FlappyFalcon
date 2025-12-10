@@ -14,7 +14,27 @@
             <li class="nav-item"><a href="shop.php">Shop</a></li>
             <li class="nav-item active"><a href="#">Leaderboard</a></li>
         </ul>
+        <div class="user-dropdown">
+            <button class="user-dropdown-toggle" onclick="toggleDropdown()">
+                <?php echo htmlspecialchars($_SESSION['username']); ?>
+            </button>
+            <ul class="user-dropdown-menu">
+                <li><a href="logout.php">Sign Out</a></li>
+            </ul>
+        </div>
     </nav>
+    <script>
+        function toggleDropdown() {
+            document.querySelector('.user-dropdown').classList.toggle('active');
+        }
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.user-dropdown');
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
     <div class="content">
         <h2><strong>Your High Score: <?php echo isset($_SESSION['high_score']) ? intval($_SESSION['high_score']) : 0; ?></strong></h2>
         <h1>Global Leaderboard</h1>

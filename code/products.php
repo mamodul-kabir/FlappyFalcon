@@ -11,14 +11,14 @@ $products = [
     2 => [
         'id' => 2,
         'name' => 'New Yorker',
-        'price' => 200,
+        'price' => 2,
         'image' => 'assets/skin/new-yorker.png',
         'desc' => 'Stylish New Yorker themed skin',
     ],
     3 => [
         'id' => 3,
         'name' => 'Parisian',
-        'price' => 180,
+        'price' => 3,
         'image' => 'assets/skin/parisian.png',
         'desc' => 'Elegant Paris-inspired skin',
     ],
