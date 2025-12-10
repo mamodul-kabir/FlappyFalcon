@@ -11,7 +11,8 @@ let brdH = 24;
 let brdX = boardW/8;
 let brdY = boardH/2;
 let brdImg; 
-let brdSkin = "./assets/skin/flappybird0.png"; //gonna change it when shop is open
+// Use selected skin from PHP, fallback to default if not set
+let brdSkin = typeof selectedSkinImage !== 'undefined' ? selectedSkinImage : "./assets/skin/flappybird0.png";
 
 let brd = {
     x: brdX,
@@ -60,7 +61,7 @@ window.onload = function(){
     bottomPillarImg.src = "./assets/pillar/bottompipe.png"; 
 
     requestAnimationFrame(update); 
-    setInterval(placePillars, 1000);
+    setInterval(placePillars, 1500); 
     document.addEventListener("keydown", updateBird)
 }
 
